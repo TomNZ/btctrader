@@ -4,7 +4,11 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('trader.views',
+    url(r'^/?', 'index', name='index')
+)
+
+urlpatterns += patterns('',
     # Examples:
     # url(r'^$', 'btctrader.views.home', name='home'),
     # url(r'^btctrader/', include('btctrader.foo.urls')),
