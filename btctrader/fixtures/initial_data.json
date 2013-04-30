@@ -1,0 +1,148 @@
+[
+{
+  "pk": 1, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "BTC", 
+    "name": "Bitcoin"
+  }
+},
+{
+  "pk": 2, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "USD", 
+    "name": "US Dollar"
+  }
+},
+{
+  "pk": 3, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "EUR", 
+    "name": "Euro"
+  }
+},
+{
+  "pk": 4, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "GBP", 
+    "name": "Great British Pound"
+  }
+},
+{
+  "pk": 5, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "JPY", 
+    "name": "Japanese Yen"
+  }
+},
+{
+  "pk": 6, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "AUD", 
+    "name": "Australian Dollar"
+  }
+},
+{
+  "pk": 7, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "CAD", 
+    "name": "Canadian Dollar"
+  }
+},
+{
+  "pk": 8, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "CHF", 
+    "name": "Swiss Franc"
+  }
+},
+{
+  "pk": 9, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "CNY", 
+    "name": "Chinese Yuan"
+  }
+},
+{
+  "pk": 10, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "DKK", 
+    "name": "Danish Krone"
+  }
+},
+{
+  "pk": 11, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "HKD", 
+    "name": "Hong Kong Dollar"
+  }
+},
+{
+  "pk": 12, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "PLN", 
+    "name": "Polish Zloty"
+  }
+},
+{
+  "pk": 13, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "RUB", 
+    "name": "Russian Rouble"
+  }
+},
+{
+  "pk": 14, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "SEK", 
+    "name": "Swedish Krona"
+  }
+},
+{
+  "pk": 15, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "SGD", 
+    "name": "Singapore Dollar"
+  }
+},
+{
+  "pk": 16, 
+  "model": "trader.currency", 
+  "fields": {
+    "abbrev": "THB", 
+    "name": "Thai Baht"
+  }
+},
+{
+  "pk": 1, 
+  "model": "trader.market", 
+  "fields": {
+    "default_trade_currency": 2, 
+    "abbrev": "mtgox", 
+    "name": "MtGox"
+  }
+},
+{
+  "pk": 2, 
+  "model": "trader.market", 
+  "fields": {
+    "default_trade_currency": 2, 
+    "abbrev": "bitstamp", 
+    "name": "Bitstamp"
+  }
+}
+]

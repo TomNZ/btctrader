@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('trader.views',
-    url(r'^/?', 'index', name='index')
+    url(r'^/?$', 'index', name='index')
 )
 
 urlpatterns += patterns('',
