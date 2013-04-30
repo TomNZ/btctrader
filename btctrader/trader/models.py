@@ -18,11 +18,11 @@ class MarketPeriod(models.Model):
     market = models.ForeignKey(Market)
     start_time = models.DateTimeField()
     period = models.IntegerField()
-    open_price = models.DecimalField()
-    close_price = models.DecimalField()
-    high = models.DecimalField()
-    low = models.DecimalField()
-    volume = models.DecimalField()
+    open_price = models.DecimalField(decimal_places=5, max_digits=18)
+    close_price = models.DecimalField(decimal_places=5, max_digits=18)
+    high = models.DecimalField(decimal_places=5, max_digits=18)
+    low = models.DecimalField(decimal_places=5, max_digits=18)
+    volume = models.DecimalField(decimal_places=3, max_digits=16)
 
 
 ORDER_TYPE_CHOICES = (
@@ -43,16 +43,16 @@ class Order(models.Model):
     status = models.CharField(default='U', max_length=1, choices=ORDER_STATUS_CHOICES)
     market = models.ForeignKey(Market)
     market_order = models.BooleanField()
-    amount = models.DecimalField()
+    amount = models.DecimalField(decimal_places=5, max_digits=18)
     currency = models.ForeignKey(Currency)
-    price = models.DecimalField(blank=True, null=True)
+    price = models.DecimalField(blank=True, null=True, decimal_places=5, max_digits=18)
     market_order_id = models.CharField(max_length=255)
 
 
 class MarketPrice(models.Model):
 
     market = models.ForeignKey(Market)
-    currency_from = models.ForeignKey(Currency)
-    currency_to = models.ForeignKey(Currency)
-    buy_price = models.DecimalField()
-    sell_price = models.DecimalField()
+    currency_from = models.ForeignKey(Currency, related_name='currency_from_set')
+    currency_to = models.ForeignKey(Currency, related_name='currency_to_set')
+    buy_price = models.DecimalField(decimal_places=5, max_digits=18)
+    sell_price = models.DecimalField(decimal_places=5, max_digits=18)
