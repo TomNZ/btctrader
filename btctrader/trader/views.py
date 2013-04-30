@@ -3,5 +3,5 @@ from markets import MtGoxMarket
 
 def index(request):
     mtgox = MtGoxMarket()
-    fee = mtgox.get_trade_fee()
+    success, err, fee = mtgox.api_get_trade_fee()
     return render_to_response('index.html', {'data' : fee})
