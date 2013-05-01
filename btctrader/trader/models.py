@@ -7,13 +7,19 @@ class Currency(models.Model):
     abbrev = models.CharField(max_length=10)
 
     def __unicode__(self):
-        return self.name
+        return u'%s (%s)' % (self.abbrev, self.name)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.abbrev = self.abbrev.upper()
+        super(Currency, self).save(force_insert, force_update, using, update_fields)
 
 
 class Market(models.Model):
 
     name = models.CharField(max_length=256)
     abbrev = models.CharField(max_length=10)
+    api_name = models.CharField(max_length=256)
     default_trade_currency = models.ForeignKey(Currency)
 
     def __unicode__(self):
@@ -62,6 +68,9 @@ class Order(models.Model):
 
     def __unicode__(self):
         return self.market_order_id
+
+    def get_currency_pair(self, separator=''):
+        return self.currency_from.abbrev + separator + self.currency_to.abbrev
 
 
 class MarketPrice(models.Model):
