@@ -1,7 +1,12 @@
 from django.shortcuts import render_to_response
-from markets import MtGoxMarket
+import markets
+import forms
+
 
 def index(request):
-    mtgox = MtGoxMarket()
-    success, err, fee = mtgox.api_get_trade_fee()
-    return render_to_response('index.html', {'data' : fee})
+    orderform = forms.NewOrderForm()
+
+    # Was there a postback?
+    # TODO: Handle the postback
+
+    return render_to_response('index.html', {'orderform' : orderform})

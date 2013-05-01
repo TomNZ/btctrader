@@ -4,7 +4,6 @@ import hmac
 import time
 import urllib
 import requests
-from models import *
 
 
 # Note that all public API functions are expected to return up to 3 outputs:
@@ -59,24 +58,24 @@ class MarketBase:
 
 
 # Be VERY careful - should NOT be changed unless no longer correct
-MTGOX_CURRENCY_DIVISIONS = (
-    ('BTC', 100000000),
-    ('USD', 100000),
-    ('GBP', 100000),
-    ('EUR', 100000),
-    ('JPY', 1000),
-    ('AUD', 100000),
-    ('CAD', 100000),
-    ('CHF', 100000),
-    ('CNY', 100000),
-    ('DKK', 100000),
-    ('HKD', 100000),
-    ('PLN', 100000),
-    ('RUB', 100000),
-    ('SEK', 1000),
-    ('SGD', 100000),
-    ('THB', 100000),
-)
+MTGOX_CURRENCY_DIVISIONS = {
+    'BTC': 100000000,
+    'USD': 100000,
+    'GBP': 100000,
+    'EUR': 100000,
+    'JPY': 1000,
+    'AUD': 100000,
+    'CAD': 100000,
+    'CHF': 100000,
+    'CNY': 100000,
+    'DKK': 100000,
+    'HKD': 100000,
+    'PLN': 100000,
+    'RUB': 100000,
+    'SEK': 1000,
+    'SGD': 100000,
+    'THB': 100000,
+}
 
 # Constant value enforced in the API
 MTGOX_MINIMUM_TRADE_BTC = 0.01
@@ -85,6 +84,16 @@ MTGOX_API_BASE_URL = 'https://data.mtgox.com/api/2/'
 
 
 class MtGoxMarket(MarketBase):
+    """
+    Market interface for MtGox
+    https://www.mtgox.com/
+
+    Utilizes the (frustratingly incomplete) version 2 API. Implemented based on the unofficial documentation here:
+    https://bitbucket.org/nitrous/mtgox-api/overview
+
+    API keys are obtained from here (requires MtGox account):
+    https://mtgox.com/security
+    """
 
     supported_currency_pairs = (
         ('BTC', 'USD'),
@@ -137,7 +146,11 @@ class MtGoxMarket(MarketBase):
         return str(int(time.time() * 1000))
 
     def api_request(self, path, post_data=None):
-        if post_data is None:
+        # Convert input to a list if we got a dict
+        if post_data is not None:
+            if isinstance(post_data, dict):
+                post_data = post_data.items()
+        else:
             post_data = []
 
         # Add the nonce
@@ -185,7 +198,9 @@ class MtGoxMarket(MarketBase):
 
         # Check for failure response
         if resp is None or resp.status_code != 200:
-            return False, 'HTTP request failed: API returned status %s (request path %s)' % resp.status_code, path
+            return False,\
+                'HTTP request failed: API returned status %s (request path %s)' % (resp.status_code, path),\
+                resp
 
         resp_json = resp.json()
         if resp_json['result'] != 'success':
@@ -194,7 +209,7 @@ class MtGoxMarket(MarketBase):
             return True, None, resp_json['data']
 
     def api_get_info(self):
-        return self.api_request(self.default_currency_pair + '/money/info')
+        return self.api_request(path=self.default_currency_pair + '/money/info')
 
     def api_get_trade_fee(self):
         if not self.trade_fee_valid:
@@ -207,28 +222,52 @@ class MtGoxMarket(MarketBase):
 
         return True, None, self.trade_fee
 
-    def get_order_currency_pair(self, order):
-        return order.currency_from.abbrev.upper() + order.currency_to.abbrev.upper()
-
     def api_execute_order(self, order):
         # Should we even be executing this order?
         if order.amount < MTGOX_MINIMUM_TRADE_BTC:
             return False, 'Trade amount lower than MtGox minimum trade'
-        if order.status != 'N':
+        if order.status != 'N' or order.market_order_id != '':
             return False, 'Order has already been submitted to MtGox'
-        if not (order.currency_from.abbrev.upper(), order.currency_to.abbrev.upper()) in self.supported_currency_pairs:
+        if not (order.currency_from.abbrev, order.currency_to.abbrev) in self.supported_currency_pairs:
             return False, 'MtGox does not support this currency pairing'
 
         # Get the current trade fee associated with this account
-        success, err, fee = self.api_get_trade_fee()
+        # success, err, fee = self.api_get_trade_fee()
+        # if not success:
+        #     return success, err
+
+        # Build the trade request
+        trade_req = {}
+
+        # type
+        if order.order_type == 'B':
+            trade_req['type'] = 'bid'
+        elif order.order_type == 'S':
+            trade_req['type'] = 'ask'
+        else:
+            return False, 'Unsupported order type: %s' % order.order_type
+
+        # amount_int
+        # Make sure to multiply by the division factor and convert to an int
+        # TODO: Account for the trade fee here? Or somewhere else?
+        trade_req['amount_int'] = int(order.amount * MTGOX_CURRENCY_DIVISIONS[order.currency_from.abbrev])
+
+        # price_int
+        if not order.market_order:
+            if order.price > 0:
+                trade_req['price_int'] = int(order.price * MTGOX_CURRENCY_DIVISIONS[order.currency_to.abbrev])
+            else:
+                return False, 'Must specify a price for a non-market order'
+
+        # Send the trade request
+        success, err, result = self.api_request(path=order.get_currency_pair() + '/money/order/add',
+                                                post_data=trade_req)
         if not success:
             return success, err
 
-        # Build the trade request
-
-        # Account for the trade fee
-
-        # Send the trade request
+        # Save the order ID
+        order.market_order_id = str(result)
+        order.save()
 
         # Invalidate trade fee
         self.trade_fee_valid = False
@@ -236,7 +275,7 @@ class MtGoxMarket(MarketBase):
     def api_update_order_status(self, order):
         # Currently the v2 API call for info on a specific order is broke
         # Hence retrieve info for all orders and filter from there
-        success, err, result = self.api_request(self.get_order_currency_pair(order) + '/money/orders')
+        success, err, result = self.api_request(path=order.get_currency_pair() + '/money/orders')
         if not success:
             return success, err
 
@@ -244,15 +283,15 @@ class MtGoxMarket(MarketBase):
         for open_order in result:
             if open_order['oid'] == order.market_order_id:
                 # Validate order parameters - if MtGox doesn't agree with the database then there's a serious problem
-                if open_order['currency'] != order.currency_to.abbrev.upper():
+                if open_order['currency'] != order.currency_to.abbrev:
                     return False, 'Order currency_to does not match expected value (expected %s, got %s)' %\
-                                  order.currency_to.abbrev.upper(), open_order['currency']
-                if open_order['item'] != order.currency_from.abbrev.upper():
+                                  (order.currency_to.abbrev, open_order['currency'])
+                if open_order['item'] != order.currency_from.abbrev:
                     return False, 'Order currency_from does not match expected value (expected %s, got %s)' %\
-                                  order.currency_from.abbrev.upper(), open_order['item']
+                                  (order.currency_from.abbrev, open_order['item'])
                 if open_order['amount'] != order.amount:
                     return False, 'Order amount does not match expected value (expected %s, got %s)' %\
-                                  order.amount, open_order['amount']
+                                  (order.amount, open_order['amount'])
                 if order.market_order and float(open_order['price']) != 0:
                     return False, 'Order expected to be a market order, got price %s' % open_order['price']
 
@@ -269,11 +308,40 @@ class MtGoxMarket(MarketBase):
                 found = True
                 break
 
-        if not found:
+        # TODO: Could it have been cancelled? No way to tell in current API version
+        # For now, if the status is set to Cancelled, leave it as such
+        if not found and order.status != 'C':
             # /money/orders does not return filled orders - if it wasn't found, assume it was filled
-            # TODO: Could it have been cancelled?
             order.status = 'F'
 
         order.save()
 
         return True, None
+
+
+class BitstampMarket(MarketBase):
+    # Empty for now
+    pass
+
+
+class NullMarket(MarketBase):
+    """
+    Provides a dummy market interface that is not connected to a real market. Useful for testing purposes only.
+    Has some varied behavior built into it based on random numbers, in order to simulate a variety of different
+    scenarios - including random failures that might be seen on a real market.
+
+    In a production deployment, you can safely remove this market from the AVAILABLE_MARKETS dictionary.
+    """
+
+    # Empty for now
+    pass
+
+
+# This is used for dynamically "reflecting" markets/orders to their corresponding API class
+# Make sure to add new market classes to this dictionary when they're ready
+# The key in this dictionary corresponds to models.Market.api_name
+AVAILABLE_MARKETS = {
+    'mtgox': MtGoxMarket,
+    'bitstamp': BitstampMarket,
+    'null': NullMarket,
+}
