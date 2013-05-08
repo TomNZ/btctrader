@@ -1,4 +1,6 @@
 from django.db import models
+import markets
+from django.utils import timezone
 
 
 class Currency(models.Model):
@@ -20,10 +22,22 @@ class Market(models.Model):
     name = models.CharField(max_length=256)
     abbrev = models.CharField(max_length=10)
     api_name = models.CharField(max_length=256)
-    default_trade_currency = models.ForeignKey(Currency)
+    default_currency_from = models.ForeignKey(Currency, related_name='default_currency_from_market_set')
+    default_currency_to = models.ForeignKey(Currency, related_name='default_currency_to_market_set')
+
+    # Stores persistent API objects
+    apis = {}
 
     def __unicode__(self):
         return self.name
+
+    def market_api(self):
+        if self.id in Market.apis.keys():
+            return Market.apis[self.id]
+        else:
+            api = markets.AVAILABLE_MARKETS[self.api_name](self)
+            Market.apis[self.id] = api
+            return api
 
 
 class MarketPeriod(models.Model):
@@ -78,5 +92,6 @@ class MarketPrice(models.Model):
     market = models.ForeignKey(Market)
     currency_from = models.ForeignKey(Currency, related_name='currency_from_marketprice_set')
     currency_to = models.ForeignKey(Currency, related_name='currency_to_marketprice_set')
+    time = models.DateTimeField(default=timezone.now, blank=True)
     buy_price = models.DecimalField(decimal_places=5, max_digits=18)
     sell_price = models.DecimalField(decimal_places=5, max_digits=18)

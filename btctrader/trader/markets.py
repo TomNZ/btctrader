@@ -2,8 +2,10 @@ import base64
 import hashlib
 import hmac
 import time
+from django.utils import timezone
 import urllib
 import requests
+import models
 
 
 # Note that all public API functions are expected to return up to 3 outputs:
@@ -13,7 +15,7 @@ import requests
 # This is to avoid messy/expensive exception handling and call stack unwinds
 # Please ALWAYS verify the value of success when calling an api function
 # For convention, all functions implementing this return interface are prefixed with api_
-class MarketBase:
+class MarketBase(object):
     """
     Defines the interface for a Market API
     """
@@ -24,19 +26,35 @@ class MarketBase:
         ('BTC', 'USD'),
     )
 
+    def __init__(self, market):
+        """
+        Instantiate the Market API object. Stores a pointer back to the Market
+        database object
+        """
+        self.market = market
+
     def api_execute_order(self, order):
         """
         Attempt to execute the specified order
         @type order: models.Order
         """
-        pass
+        return False, 'Not implemented', None
 
     def api_update_order_status(self, order):
         """
-        Update the order object with the latest status from the market
+        Update a single order object with the latest status from the market
         @type order: models.Order
         """
-        pass
+        return False, 'Not implemented', None
+
+    def api_update_market(self):
+        """
+        Used to update the state of the market as a whole. It's suggested that
+        this be used to update both current market pricing and depth information,
+        as well as all currently open orders. This is intended to be called with
+        relatively low frequency, typically once per minute
+        """
+        return False, 'Not implemented', None
 
     def api_get_total_amount_after_fees(self, amount, order_type, currency):
         """
@@ -44,7 +62,7 @@ class MarketBase:
         Based on both a currency, and an order type (Buy/Sell)
         @type currency: models.Currency
         """
-        pass
+        return False, 'Not implemented', None
 
     def api_get_total_amount_incl_fees(self, amount, order_type, currency):
         """
@@ -54,7 +72,19 @@ class MarketBase:
         Based on both a currency, and an order type (Buy/Sell)
         @type currency: models.Currency
         """
-        pass
+        return False, 'Not implemented', None
+
+    def api_get_current_market_price(self, force_update=False, currency_from=None, currency_to=None):
+        """
+        Returns a current MarketPrice object for the market. Markets can choose
+        to introduce caching here if desired (i.e. only update with live data
+        once every X seconds). It's also optional to actually save the market
+        price to the database (although recommended if caching). If force_update
+        is true, then caching behavior should be bypassed
+        @type currency_from: models.Currency
+        @type currency_to: models.Currency
+        """
+        return False, 'Not implemented', None
 
 
 # Be VERY careful - should NOT be changed unless no longer correct
@@ -116,18 +146,28 @@ class MtGoxMarket(MarketBase):
     timeout = 15
     tryout = 5
 
-    def __init__(self):
+    def __init__(self, market):
+        super(MtGoxMarket, self).__init__(market)
+
         # Change these to reflect your actual API keys
         self.api_key = '86c19e46-6e8e-4093-b876-4ca116170658'
         self.api_secret = 'WOKFhfhlRxifCo5cogriTddCBrZ0RNar7VH4K/xioXr/oo77oaBy9lX7OC62oHJbRPQU1GTc0JRAAcKFov6lOw=='
 
+        # Internal storage for the current trading fee
+        # Varies from account to account - must be updated via the API
         self.trade_fee = 0
         self.trade_fee_valid = False
 
+        # Rolling window to limit requests made to the API
         self.time = {'init': time.time(), 'req': time.time()}
         self.reqs = {'max': 10, 'window': 10, 'curr': 0}
 
-        self.default_currency_pair = 'BTCUSD'
+        # Default currency pair; used for API calls where the currency makes no difference
+        self.default_currency_pair = self.market.default_currency_from.abbrev + self.market.default_currency_to.abbrev
+
+        # Caching rules for market price data
+        # If the last price is older than this number of seconds, an API call will be made to refresh the price
+        self.market_price_max_age = 60
 
     def throttle(self):
         # check that in a given time window (10 seconds),
@@ -272,54 +312,137 @@ class MtGoxMarket(MarketBase):
         # Invalidate trade fee
         self.trade_fee_valid = False
 
-    def api_update_order_status(self, order):
-        # Currently the v2 API call for info on a specific order is broke
-        # Hence retrieve info for all orders and filter from there
-        success, err, result = self.api_request(path=order.get_currency_pair() + '/money/orders')
-        if not success:
-            return success, err
+        return True, None, None
 
+    def update_db_order_status(self, db_order, mtgox_orders):
         found = False
-        for open_order in result:
-            if open_order['oid'] == order.market_order_id:
+        for open_order in mtgox_orders:
+            if open_order['oid'] == db_order.market_order_id:
                 # Validate order parameters - if MtGox doesn't agree with the database then there's a serious problem
-                if open_order['currency'] != order.currency_to.abbrev:
+                if open_order['currency'] != db_order.currency_to.abbrev:
                     return False, 'Order currency_to does not match expected value (expected %s, got %s)' %\
-                                  (order.currency_to.abbrev, open_order['currency'])
-                if open_order['item'] != order.currency_from.abbrev:
+                                  (db_order.currency_to.abbrev, open_order['currency'])
+                if open_order['item'] != db_order.currency_from.abbrev:
                     return False, 'Order currency_from does not match expected value (expected %s, got %s)' %\
-                                  (order.currency_from.abbrev, open_order['item'])
-                if open_order['amount'] != order.amount:
+                                  (db_order.currency_from.abbrev, open_order['item'])
+                if open_order['amount'] != db_order.amount:
                     return False, 'Order amount does not match expected value (expected %s, got %s)' %\
-                                  (order.amount, open_order['amount'])
-                if order.market_order and float(open_order['price']) != 0:
+                                  (db_order.amount, open_order['amount'])
+                if db_order.market_order and float(open_order['price']) != 0:
                     return False, 'Order expected to be a market order, got price %s' % open_order['price']
 
                 # Update status
                 if open_order['status'] in ['pending', 'executing', 'post-pending']:
-                    order.status = 'E'
+                    db_order.status = 'E'
                 elif open_order['status'] == 'open':
-                    order.status = 'O'
+                    db_order.status = 'O'
                 elif open_order['status'] == 'invalid':
-                    order.status = 'I'
+                    db_order.status = 'I'
                 else:
-                    order.status = 'U'
+                    db_order.status = 'U'
 
                 found = True
                 break
 
-        # TODO: Could it have been cancelled? No way to tell in current API version
-        # For now, if the status is set to Cancelled, leave it as such
-        if not found and order.status != 'C':
-            # /money/orders does not return filled orders - if it wasn't found, assume it was filled
-            order.status = 'F'
+        # TODO: Could it have been cancelled? No way to tell in current API version!
+        # /money/orders does not return filled orders - if it wasn't found, assume it was filled
+        # For now, only update to Filled if the order was Open or Executing
+        if not found and db_order.status in ['O', 'E']:
+            db_order.status = 'F'
 
-        order.save()
+        db_order.save()
 
-        return True, None
+        return True, None, None
+
+    def api_update_order_status(self, order):
+        # Currently the v2 API call for info on a specific order is broke
+        # Hence retrieve info for all orders and filter from there
+        success, err, mtgox_orders = self.api_request(path=order.get_currency_pair() + '/money/orders')
+        if not success:
+            return success, err
+
+        return self.update_db_order_status(order, mtgox_orders)
+
+    def api_update_market(self):
+        # Update all orders
+
+        # TODO: Do we need to split this request into separate requests for different currency pairs, per order?
+        # It's possible that the API returns all orders no matter which currency you specify - need to test
+        success, err, mtgox_orders = self.api_request(path=self.default_currency_pair + '/money/orders')
+        if not success:
+            return success, err
+
+        db_orders = self.market.order_set.filter(order_status__in=['N', 'O', 'E', 'U'])
+        for db_order in db_orders:
+            success, err = self.update_db_order_status(db_order, mtgox_orders)
+            if not success:
+                return success, err
+
+        # TODO: Update market prices etc
+        success, err, market_price = self.api_get_current_market_price(self.market)
+        if not success:
+            return success, err
+
+        return True, None, None
+
+    def api_get_current_market_price(self, force_update=False, currency_from=None, currency_to=None):
+        currency_pair = self.default_currency_pair
+
+        if currency_from is not None and currency_to is not None:
+            currency_pair = currency_from.abbrev + currency_to.abbrev
+        else:
+            currency_from = self.market.default_currency_from
+            currency_to = self.market.default_currency_to
+
+        # See if there's a recent price
+        if not force_update:
+            try:
+                last_price = models.MarketPrice.objects.filter(
+                    market=self.market,
+                    currency_from=currency_from,
+                    currency_to=currency_to
+                ).order_by('-time')[0]
+
+                # Is this price recent enough? If so, just return it
+                if (timezone.now() - last_price.time).total_seconds() <= self.market_price_max_age:
+                    return True, None, last_price
+
+            except IndexError:
+                # Don't do anything - this just means we couldn't find any MarketPrice
+                # objects for the market/currency
+                pass
+
+        # If we got to this point, then we need to make an API call to get the latest price
+        success, err, ticker = self.api_request(path=currency_pair + '/money/ticker')
+        if not success:
+            return success, err
+
+        # Build the MarketPrice object
+        market_price = models.MarketPrice()
+        market_price.market = self.market
+        market_price.currency_from = currency_from
+        market_price.currency_to = currency_to
+
+        market_price.buy_price = float(ticker['buy']['value_int']) / MTGOX_CURRENCY_DIVISIONS[currency_to.abbrev]
+        market_price.sell_price = float(ticker['sell']['value_int']) / MTGOX_CURRENCY_DIVISIONS[currency_to.abbrev]
+
+        # Save it so it can be "cached" for next time
+        market_price.save()
+
+        return True, None, market_price
 
 
 class BitstampMarket(MarketBase):
+    """
+    Market interface for BitStamp
+    https://www.bitstamp.net/
+
+    Implemented based on the official documentation here:
+    https://www.bitstamp.net/api/
+
+    No API keys - some functions require authentication using username/password
+    """
+
     # Empty for now
     pass
 

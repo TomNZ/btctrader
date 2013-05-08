@@ -1,0 +1,15 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>btctrader</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="screen" />
+    <script src="{% static 'js/jquery-2.0.0.min.js' %}"></script>
+</head>
+<body>
+<div id="wrapper">
+{% block content %}
+{% endblock %}
+</div>
+</body>
