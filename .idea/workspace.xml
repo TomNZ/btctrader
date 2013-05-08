@@ -2,24 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/btctrader/trader/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btctrader/templates/index.html" afterPath="$PROJECT_DIR$/btctrader/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btctrader/fixtures/initial_data.json" afterPath="$PROJECT_DIR$/btctrader/fixtures/initial_data.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/btctrader/trader/agent.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/btctrader/templates/base.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/btctrader/templates/trader/market_view.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/btctrader/trader/static/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btctrader/trader/markets.py" afterPath="$PROJECT_DIR$/btctrader/trader/markets.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btctrader/trader/models.py" afterPath="$PROJECT_DIR$/btctrader/trader/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btctrader/btctrader/settings.py" afterPath="$PROJECT_DIR$/btctrader/btctrader/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btctrader/btctrader/urls.py" afterPath="$PROJECT_DIR$/btctrader/btctrader/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btctrader/trader/views.py" afterPath="$PROJECT_DIR$/btctrader/trader/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="F:\Store\btctrader\btctrader\templates\index.html" afterPath="$PROJECT_DIR$/btctrader/templates/trader/index.html" />
     </list>
     <ignored path="btctrader.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/settings.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367362646036" ignored="false" />
-    <file path="/models.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367377364986" ignored="false" />
-    <file path="/markets.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367389918051" ignored="false" />
-    <file path="/views.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367368423835" ignored="false" />
+    <file path="/settings.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367900892259" ignored="false" />
+    <file path="/models.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1368045778828" ignored="false" />
+    <file path="/markets.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1368045625360" ignored="false" />
+    <file path="/views.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1368046089740" ignored="false" />
     <file path="/admin.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367363498011" ignored="false" />
     <file path="/Dummy.txt" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367367097722" ignored="false" />
     <file path="/forms.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367368661619" ignored="false" />
-    <file path="/index.html" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367376518562" ignored="false" />
+    <file path="/index.html" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367985025402" ignored="false" />
+    <file path="/agent.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367906398431" ignored="false" />
+    <file path="/base.html" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367981957614" ignored="false" />
+    <file path="/dummy.xml" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367981958088" ignored="false" />
+    <file path="/urls.py" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1367986145253" ignored="false" />
+    <file path="/market_view.html" changelist="e1bfc393-fc7f-4c89-8f34-81c86b1f7b5a" time="1368046172522" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,10 +48,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="markets.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="markets.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/btctrader/trader/markets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="330" column="78" selection-start="11684" selection-end="11684" vertical-scroll-proportion="0.6229839">
+            <state line="407" column="49" selection-start="15433" selection-end="15433" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -53,7 +62,7 @@
       <file leaf-file-name="initial_data.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/btctrader/fixtures/initial_data.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="156" column="17" selection-start="2349" selection-end="2349" vertical-scroll-proportion="-33.884617">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -62,7 +71,7 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/btctrader/trader/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
+            <state line="12" column="36" selection-start="271" selection-end="271" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -70,19 +79,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/btctrader/templates/index.html">
+      <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/btctrader/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="-0.0">
+            <state line="11" column="19" selection-start="311" selection-end="311" vertical-scroll-proportion="-7.1923075">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/btctrader/btctrader/settings.py">
+      <file leaf-file-name="market_view.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/btctrader/templates/trader/market_view.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="13" selection-start="172" selection-end="172" vertical-scroll-proportion="0.0">
+            <state line="11" column="14" selection-start="381" selection-end="381" vertical-scroll-proportion="0.22051887">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/btctrader/templates/trader/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="8" selection-start="91" selection-end="91" vertical-scroll-proportion="-3.2692308">
               <folding />
             </state>
           </provider>
@@ -91,16 +109,18 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/btctrader/trader/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="69" selection-start="2722" selection-end="2722" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="83" column="35" selection-start="2696" selection-end="2696" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/btctrader/btctrader/urls.py">
+      <file leaf-file-name="agent.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/btctrader/trader/agent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="0" selection-start="640" selection-end="640" vertical-scroll-proportion="0.0">
+            <state line="6" column="8" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -110,20 +130,7 @@
         <entry file="file://$PROJECT_DIR$/btctrader/trader/forms.py">
           <provider selected="true" editor-type-id="text-editor">
             <state line="12" column="47" selection-start="302" selection-end="302" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#0#34#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/btctrader/trader/admin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="0" selection-start="259" selection-end="259" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,15 +147,20 @@
       <list>
         <option value="$PROJECT_DIR$/btctrader/btctrader/fields.py" />
         <option value="$PROJECT_DIR$/btctrader/btctrader/trader/models.py" />
-        <option value="$PROJECT_DIR$/btctrader/btctrader/settings.py" />
-        <option value="$PROJECT_DIR$/btctrader/btctrader/urls.py" />
         <option value="$PROJECT_DIR$/btctrader/trader/admin.py" />
-        <option value="$PROJECT_DIR$/btctrader/trader/views.py" />
         <option value="$PROJECT_DIR$/btctrader/trader/forms.py" />
-        <option value="$PROJECT_DIR$/btctrader/templates/index.html" />
-        <option value="$PROJECT_DIR$/btctrader/trader/models.py" />
         <option value="$PROJECT_DIR$/btctrader/fixtures/initial_data.json" />
+        <option value="$PROJECT_DIR$/btctrader/templates/index.html" />
+        <option value="$PROJECT_DIR$/btctrader/btctrader/settings.py" />
+        <option value="$PROJECT_DIR$/btctrader/trader/tasks.py" />
+        <option value="$PROJECT_DIR$/btctrader/trader/agent.py" />
+        <option value="$PROJECT_DIR$/btctrader/templates/base.html" />
+        <option value="$PROJECT_DIR$/btctrader/templates/trader/index.html" />
+        <option value="$PROJECT_DIR$/btctrader/btctrader/urls.py" />
         <option value="$PROJECT_DIR$/btctrader/trader/markets.py" />
+        <option value="$PROJECT_DIR$/btctrader/trader/models.py" />
+        <option value="$PROJECT_DIR$/btctrader/trader/views.py" />
+        <option value="$PROJECT_DIR$/btctrader/templates/trader/market_view.html" />
       </list>
     </option>
   </component>
@@ -156,7 +168,7 @@
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="1176" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -248,7 +260,81 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="trader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="btctrader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="btctrader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="btctrader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="btctrader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="btctrader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="btctrader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="btctrader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="btctrader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="btctrader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trader" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -296,13 +382,14 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Font" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/btctrader/btctrader/settings.py" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -311,6 +398,11 @@
     <option name="myDjangoConsoleState">
       <PyConsoleSettings />
     </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Store\btctrader\btctrader\templates\trader" />
+    </key>
   </component>
   <component name="RunManager" selected="Django server.btctrader">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -328,29 +420,6 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="btctrader" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -376,6 +445,29 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="btctrader" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -394,6 +486,13 @@
       <option name="TEST_TYPE" value="TEST_SCRIPT" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="false" name="btctrader" type="Python.DjangoServer" factoryName="Django server" singleton="true">
@@ -452,17 +551,36 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289183" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2054429" sideWeight="0.6444008" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35559922" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.122732125" sideWeight="0.64555556" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35444444" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289183" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -470,6 +588,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289183" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -534,61 +653,44 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="6" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/btctrader/trader/markets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btctrader/trader/markets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/btctrader/manage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="252" selection-end="252" vertical-scroll-proportion="0.2953668">
-          <folding />
-        </state>
+        <state line="10" column="0" selection-start="252" selection-end="252" vertical-scroll-proportion="0.2953668" />
       </provider>
     </entry>
     <entry file="file://C:/Python27/Lib/site-packages/django/core/management/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="283" column="0" selection-start="10856" selection-end="10856" vertical-scroll-proportion="0.33204633">
-          <folding />
-        </state>
+        <state line="283" column="0" selection-start="10856" selection-end="10856" vertical-scroll-proportion="0.33204633" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/btctrader/trader/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="0" selection-start="259" selection-end="259" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btctrader/btctrader/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="119" column="38" selection-start="4085" selection-end="4085" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btctrader/trader/static/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/btctrader/btctrader/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="640" selection-end="640" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/django/core/handlers/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="185" column="0" selection-start="8646" selection-end="8646" vertical-scroll-proportion="0.33333334">
+        <state line="13" column="14" selection-start="352" selection-end="352" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -596,55 +698,76 @@
     <entry file="file://$PROJECT_DIR$/btctrader/trader/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="47" selection-start="302" selection-end="302" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btctrader/btctrader/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="172" selection-end="172" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/btctrader/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/btctrader/trader/agent.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btctrader/trader/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btctrader/trader/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="69" selection-start="2722" selection-end="2722" vertical-scroll-proportion="0.0">
+        <state line="6" column="8" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/btctrader/fixtures/initial_data.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="156" column="17" selection-start="2349" selection-end="2349" vertical-scroll-proportion="-33.884617">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btctrader/trader/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="83" column="35" selection-start="2696" selection-end="2696" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/django/core/handlers/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="114" column="0" selection-start="4779" selection-end="4779" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btctrader/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="19" selection-start="311" selection-end="311" vertical-scroll-proportion="-7.1923075">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btctrader/templates/trader/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="8" selection-start="91" selection-end="91" vertical-scroll-proportion="-3.2692308">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btctrader/trader/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="36" selection-start="271" selection-end="271" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/btctrader/trader/markets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="330" column="78" selection-start="11684" selection-end="11684" vertical-scroll-proportion="0.6229839">
+        <state line="407" column="49" selection-start="15433" selection-end="15433" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btctrader/templates/trader/market_view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="14" selection-start="381" selection-end="381" vertical-scroll-proportion="0.22051887">
+          <folding />
         </state>
       </provider>
     </entry>

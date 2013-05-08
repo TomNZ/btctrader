@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% load static from staticfiles %}
+
+{% block content %}
+    <h1>btctrader - {{ market.name }}</h1>
+    <h2>Current market price</h2>
+    <p><strong>Sell:</strong> {{ market_price.buy_price|floatformat:2 }}</p>
+    <p><strong>Buy:</strong> {{ market_price.buy_price|floatformat:2 }}</p>
+    <h2>Make trade</h2>
+    {{ new_order_form.as_p }}
+{% endblock %}

@@ -1,5 +1,11 @@
 # Django settings for btctrader project.
 
+import djcelery
+
+
+djcelery.setup_loader()
+
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -104,6 +110,9 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'btctrader.urls'
 
+# Celery settings
+BROKER_URL = "django://"
+
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'btctrader.wsgi.application'
 
@@ -119,7 +128,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'trader',
-    'south'
+    'south',
+    'djcelery',
+    'kombu.transport.django',
 )
 
 # A sample logging configuration. The only tangible logging

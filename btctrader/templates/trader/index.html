@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% load static from staticfiles %}
+
+{% block content %}
+    <ul>
+    {% for market in markets %}
+        <li><a href="{% url 'trader.views.market_view' market.id %}">{{ market.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
