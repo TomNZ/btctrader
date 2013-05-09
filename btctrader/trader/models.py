@@ -71,7 +71,7 @@ ORDER_STATUS_CHOICES = (
 class Order(models.Model):
 
     order_type = models.CharField(max_length=1, choices=ORDER_TYPE_CHOICES)
-    status = models.CharField(default='U', max_length=1, choices=ORDER_STATUS_CHOICES)
+    status = models.CharField(default='N', max_length=1, choices=ORDER_STATUS_CHOICES)
     market = models.ForeignKey(Market)
     market_order = models.BooleanField()
     amount = models.DecimalField(decimal_places=5, max_digits=18)
