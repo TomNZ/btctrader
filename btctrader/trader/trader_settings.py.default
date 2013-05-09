@@ -1,0 +1,13 @@
+# Defines a number of settings specific to the trader application and market APIs
+
+# MtGox settings
+# API Key
+MTGOX_API_KEY = ''
+# API Secret
+MTGOX_API_SECRET = ''
+
+# BitStamp settings
+# Username
+BITSTAMP_API_USER = ''
+# Password
+BITSTAMP_API_PASSWORD = ''
