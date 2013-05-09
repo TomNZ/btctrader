@@ -6,6 +6,7 @@ from django.utils import timezone
 import urllib
 import requests
 import models
+import trader_settings
 
 
 # Note that all public API functions are expected to return up to 3 outputs:
@@ -157,8 +158,8 @@ class MtGoxMarket(MarketBase):
         super(MtGoxMarket, self).__init__(market)
 
         # Change these to reflect your actual API keys
-        self.api_key = '86c19e46-6e8e-4093-b876-4ca116170658'
-        self.api_secret = 'WOKFhfhlRxifCo5cogriTddCBrZ0RNar7VH4K/xioXr/oo77oaBy9lX7OC62oHJbRPQU1GTc0JRAAcKFov6lOw=='
+        self.api_key = trader_settings.MTGOX_API_KEY
+        self.api_secret = trader_settings.MTGOX_API_SECRET
 
         # Internal storage for the current trading fee
         # Varies from account to account - must be updated via the API
@@ -453,13 +454,18 @@ class MtGoxMarket(MarketBase):
         market_price.currency_from = currency_from
         market_price.currency_to = currency_to
 
-        market_price.buy_price = float(ticker['buy']['value_int']) / MTGOX_CURRENCY_DIVISIONS[currency_to.abbrev]
-        market_price.sell_price = float(ticker['sell']['value_int']) / MTGOX_CURRENCY_DIVISIONS[currency_to.abbrev]
+        # Since we're on the opposite side of the transaction, the lowest "ask" price is
+        # what we will be buying for, and vice versa
+        market_price.buy_price = float(ticker['sell']['value_int']) / MTGOX_CURRENCY_DIVISIONS[currency_to.abbrev]
+        market_price.sell_price = float(ticker['buy']['value_int']) / MTGOX_CURRENCY_DIVISIONS[currency_to.abbrev]
 
         # Save it so it can be "cached" for next time
         market_price.save()
 
         return True, None, market_price
+
+
+BITSTAMP_API_BASE_URL = 'https://www.bitstamp.net/api/'
 
 
 class BitstampMarket(MarketBase):
@@ -473,8 +479,160 @@ class BitstampMarket(MarketBase):
     No API keys - some functions require authentication using username/password
     """
 
-    # Empty for now
-    pass
+    # Bitstamp only seems to support BTC/USD for a lot of API functions
+    supported_currency_pairs = (
+        ('BTC', 'USD'),
+        #('BTC', 'GBP'),
+        #('BTC', 'EUR'),
+        #('BTC', 'JPY'),
+        #('BTC', 'AUD'),
+    )
+
+    timeout = 15
+    tryout = 5
+
+    def __init__(self, market):
+        super(BitstampMarket, self).__init__(market)
+
+        self.api_user = trader_settings.BITSTAMP_API_USER
+        self.api_password = trader_settings.BITSTAMP_API_PASSWORD
+
+        # Internal storage for the current trading fee
+        # Varies from account to account - must be updated via the API
+        self.trade_fee = 0
+        self.trade_fee_valid = False
+
+        # Rolling window to limit requests made to the API
+        self.time = {'init': time.time(), 'req': time.time()}
+        self.reqs = {'max': 10, 'window': 10, 'curr': 0}
+
+        # Default currency pair; used for API calls where the currency makes no difference
+        self.default_currency_pair = self.market.default_currency_from.abbrev + self.market.default_currency_to.abbrev
+
+        # Caching rules for market price data
+        # If the last price is older than this number of seconds, an API call will be made to refresh the price
+        self.market_price_max_age = 60
+
+    def throttle(self):
+        # check that in a given time window (10 seconds),
+        # no more than a maximum number of requests (10)
+        # have been sent, otherwise sleep for a bit
+        diff = time.time() - self.time['req']
+        if diff > self.reqs['window']:
+            self.reqs['curr'] = 0
+            self.time['req'] = time.time()
+        self.reqs['curr'] += 1
+        if self.reqs['curr'] > self.reqs['max']:
+            print 'Request limit reached...'
+            time.sleep(self.reqs['window'] - diff)
+
+    def api_request(self, path, post=False, add_credentials=False, data=None):
+        # Convert input to a list if we got a dict
+        if data is not None:
+            if isinstance(data, dict):
+                data = data.items()
+        else:
+            data = []
+
+        if add_credentials:
+            data.append(('user', self.api_user))
+            data.append(('password', self.api_password))
+
+        # Encode the data
+        data_str = urllib.urlencode(data)
+
+        # Build the headers
+        headers = {
+            'User-Agent': 'btctrader',
+            'Accept-Encoding': 'gzip',
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }
+
+        tries = 0
+        resp = None
+        while tries < self.tryout:
+            tries += 1
+
+            # We want a hard throttle on requests to avoid being blocked
+            self.throttle()
+
+            # Make the actual request
+            try:
+                if post:
+                    resp = requests.post(BITSTAMP_API_BASE_URL + path,
+                                         data=data_str,
+                                         headers=headers,
+                                         timeout=self.timeout)
+                else:
+                    resp = requests.get(BITSTAMP_API_BASE_URL + path,
+                                        data=data_str,
+                                        headers=headers,
+                                        timeout=self.timeout)
+            except requests.Timeout:
+                continue
+
+            # If we got to here, the request did not timeout
+            break
+
+        # Check for failure response
+        if resp is None or resp.status_code != 200:
+            return False,\
+                'HTTP request failed: API returned status %s (request path %s)' % (resp.status_code, path),\
+                resp
+
+        resp_json = resp.json()
+        return True, None, resp_json
+
+    def api_get_current_market_price(self, force_update=False, currency_from=None, currency_to=None):
+        currency_pair = self.default_currency_pair
+
+        # Wrangle the inputs - if we got currencies then use them, otherwise
+        # set them to default values
+        if currency_from is not None and currency_to is not None:
+            currency_pair = currency_from.abbrev + currency_to.abbrev
+        else:
+            currency_from = self.market.default_currency_from
+            currency_to = self.market.default_currency_to
+
+        # See if there's a recent price
+        if not force_update:
+            try:
+                last_price = models.MarketPrice.objects.filter(
+                    market=self.market,
+                    currency_from=currency_from,
+                    currency_to=currency_to
+                ).order_by('-time')[0]
+
+                # Is this price recent enough? If so, just return it
+                if (timezone.now() - last_price.time).total_seconds() <= self.market_price_max_age:
+                    return True, None, last_price
+
+            except IndexError:
+                # Don't do anything - this just means we couldn't find any MarketPrice
+                # objects for the market/currency
+                pass
+
+        # If we got to this point, then we need to make an API call to get the latest price
+        success, err, ticker = self.api_request(path='ticker/')
+        if not success:
+            return success, err, ticker
+
+        # Build the MarketPrice object
+        market_price = models.MarketPrice()
+        market_price.market = self.market
+        market_price.currency_from = currency_from
+        market_price.currency_to = currency_to
+
+        # Since we're on the opposite side of the transaction, the lowest "ask" price is
+        # what we will be buying for, and vice versa
+        market_price.buy_price = float(ticker['ask'])
+        market_price.sell_price = float(ticker['buy'])
+
+        # Save it so it can be "cached" for next time
+        market_price.save()
+
+        return True, None, market_price
+
 
 
 class NullMarket(MarketBase):
