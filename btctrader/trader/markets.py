@@ -11,7 +11,7 @@ import models
 # Note that all public API functions are expected to return up to 3 outputs:
 #   success - A True/False value indicating whether the function succeeded
 #   err - If success=False, this field should be populated with an error message
-#   result - If success-True, this field should be populated with the actual result of the function
+#   result - If success=True, this field should be populated with the actual result of the function
 # This is to avoid messy/expensive exception handling and call stack unwinds
 # Please ALWAYS verify the value of success when calling an api function
 # For convention, all functions implementing this return interface are prefixed with api_
@@ -36,6 +36,13 @@ class MarketBase(object):
     def api_execute_order(self, order):
         """
         Attempt to execute the specified order
+        @type order: models.Order
+        """
+        return False, 'Not implemented', None
+
+    def api_cancel_order(self, order):
+        """
+        Attempt to cancel the specified order
         @type order: models.Order
         """
         return False, 'Not implemented', None
@@ -185,7 +192,7 @@ class MtGoxMarket(MarketBase):
     def nonce(self):
         return str(int(time.time() * 1000))
 
-    def api_request(self, path, post_data=None):
+    def api_request(self, path, post_data=None, check_success=True):
         # Convert input to a list if we got a dict
         if post_data is not None:
             if isinstance(post_data, dict):
@@ -243,10 +250,13 @@ class MtGoxMarket(MarketBase):
                 resp
 
         resp_json = resp.json()
-        if resp_json['result'] != 'success':
-            return False, 'API request did not return success response (request path %s)' % path
+        if check_success:
+            if resp_json['result'] != 'success':
+                return False, 'API request did not return success response (request path %s)' % path, resp_json
+            else:
+                return True, None, resp_json['data']
         else:
-            return True, None, resp_json['data']
+            return True, None, resp_json
 
     def api_get_info(self):
         return self.api_request(path=self.default_currency_pair + '/money/info')
@@ -255,7 +265,7 @@ class MtGoxMarket(MarketBase):
         if not self.trade_fee_valid:
             success, err, info = self.api_get_info()
             if not success:
-                return success, err
+                return success, err, info
 
             self.trade_fee = float(info['Trade_Fee'])
             self.trade_fee_valid = True
@@ -265,16 +275,16 @@ class MtGoxMarket(MarketBase):
     def api_execute_order(self, order):
         # Should we even be executing this order?
         if order.amount < MTGOX_MINIMUM_TRADE_BTC:
-            return False, 'Trade amount lower than MtGox minimum trade'
+            return False, 'Trade amount lower than MtGox minimum trade', None
         if order.status != 'N' or order.market_order_id != '':
-            return False, 'Order has already been submitted to MtGox'
+            return False, 'Order has already been submitted to MtGox', None
         if not (order.currency_from.abbrev, order.currency_to.abbrev) in self.supported_currency_pairs:
-            return False, 'MtGox does not support this currency pairing'
+            return False, 'MtGox does not support this currency pairing', None
 
         # Get the current trade fee associated with this account
         # success, err, fee = self.api_get_trade_fee()
         # if not success:
-        #     return success, err
+        #     return success, err, fee
 
         # Build the trade request
         trade_req = {}
@@ -285,7 +295,7 @@ class MtGoxMarket(MarketBase):
         elif order.order_type == 'S':
             trade_req['type'] = 'ask'
         else:
-            return False, 'Unsupported order type: %s' % order.order_type
+            return False, 'Unsupported order type: %s' % order.order_type, None
 
         # amount_int
         # Make sure to multiply by the division factor and convert to an int
@@ -297,22 +307,40 @@ class MtGoxMarket(MarketBase):
             if order.price > 0:
                 trade_req['price_int'] = int(order.price * MTGOX_CURRENCY_DIVISIONS[order.currency_to.abbrev])
             else:
-                return False, 'Must specify a price for a non-market order'
+                return False, 'Must specify a price for a non-market order', None
 
         # Send the trade request
         success, err, result = self.api_request(path=order.get_currency_pair() + '/money/order/add',
                                                 post_data=trade_req)
         if not success:
-            return success, err
+            return success, err, result
 
-        # Save the order ID
+        # Save the order ID and update the status
         order.market_order_id = str(result)
+        order.status = 'O'
         order.save()
 
         # Invalidate trade fee
         self.trade_fee_valid = False
 
         return True, None, None
+
+    def api_cancel_order(self, order):
+        # Can we even cancel this order?
+        if order.status not in ('O', 'E'):
+            return False, 'Order is not currently open or executing - cannot cancel', None
+
+        # Attempt to cancel
+        success, err, result = self.api_request(path=order.get_currency_pair() + '/money/order/cancel',
+                                                post_data={'oid': order.market_order_id},
+                                                check_success=False)
+        if not success:
+            return success, err, result
+
+        if result['result'] != 'success':
+            return False, 'Unable to cancel order', None
+        else:
+            return True, None, None
 
     def update_db_order_status(self, db_order, mtgox_orders):
         found = False
@@ -321,15 +349,15 @@ class MtGoxMarket(MarketBase):
                 # Validate order parameters - if MtGox doesn't agree with the database then there's a serious problem
                 if open_order['currency'] != db_order.currency_to.abbrev:
                     return False, 'Order currency_to does not match expected value (expected %s, got %s)' %\
-                                  (db_order.currency_to.abbrev, open_order['currency'])
+                                  (db_order.currency_to.abbrev, open_order['currency']), None
                 if open_order['item'] != db_order.currency_from.abbrev:
                     return False, 'Order currency_from does not match expected value (expected %s, got %s)' %\
-                                  (db_order.currency_from.abbrev, open_order['item'])
+                                  (db_order.currency_from.abbrev, open_order['item']), None
                 if open_order['amount'] != db_order.amount:
                     return False, 'Order amount does not match expected value (expected %s, got %s)' %\
-                                  (db_order.amount, open_order['amount'])
+                                  (db_order.amount, open_order['amount']), None
                 if db_order.market_order and float(open_order['price']) != 0:
-                    return False, 'Order expected to be a market order, got price %s' % open_order['price']
+                    return False, 'Order expected to be a market order, got price %s' % open_order['price'], None
 
                 # Update status
                 if open_order['status'] in ['pending', 'executing', 'post-pending']:
@@ -359,7 +387,7 @@ class MtGoxMarket(MarketBase):
         # Hence retrieve info for all orders and filter from there
         success, err, mtgox_orders = self.api_request(path=order.get_currency_pair() + '/money/orders')
         if not success:
-            return success, err
+            return success, err, mtgox_orders
 
         return self.update_db_order_status(order, mtgox_orders)
 
@@ -370,24 +398,26 @@ class MtGoxMarket(MarketBase):
         # It's possible that the API returns all orders no matter which currency you specify - need to test
         success, err, mtgox_orders = self.api_request(path=self.default_currency_pair + '/money/orders')
         if not success:
-            return success, err
+            return success, err, mtgox_orders
 
         db_orders = self.market.order_set.filter(order_status__in=['N', 'O', 'E', 'U'])
         for db_order in db_orders:
-            success, err = self.update_db_order_status(db_order, mtgox_orders)
+            success, err, result = self.update_db_order_status(db_order, mtgox_orders)
             if not success:
-                return success, err
+                return success, err, result
 
-        # TODO: Update market prices etc
+        # Update market price
         success, err, market_price = self.api_get_current_market_price(self.market)
         if not success:
-            return success, err
+            return success, err, market_price
 
         return True, None, None
 
     def api_get_current_market_price(self, force_update=False, currency_from=None, currency_to=None):
         currency_pair = self.default_currency_pair
 
+        # Wrangle the inputs - if we got currencies then use them, otherwise
+        # set them to default values
         if currency_from is not None and currency_to is not None:
             currency_pair = currency_from.abbrev + currency_to.abbrev
         else:
@@ -413,9 +443,9 @@ class MtGoxMarket(MarketBase):
                 pass
 
         # If we got to this point, then we need to make an API call to get the latest price
-        success, err, ticker = self.api_request(path=currency_pair + '/money/ticker')
+        success, err, ticker = self.api_request(path=currency_pair + '/money/ticker_fast')
         if not success:
-            return success, err
+            return success, err, ticker
 
         # Build the MarketPrice object
         market_price = models.MarketPrice()
