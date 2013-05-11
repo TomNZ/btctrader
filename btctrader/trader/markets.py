@@ -479,7 +479,8 @@ class BitstampMarket(MarketBase):
     No API keys - some functions require authentication using username/password
     """
 
-    # Bitstamp only seems to support BTC/USD for a lot of API functions
+    # Bitstamp only seems to support BTC/USD for a lot of API functions - although
+    # technically the site supports the other commented currencies here too
     supported_currency_pairs = (
         ('BTC', 'USD'),
         #('BTC', 'GBP'),
@@ -584,13 +585,9 @@ class BitstampMarket(MarketBase):
         return True, None, resp_json
 
     def api_get_current_market_price(self, force_update=False, currency_from=None, currency_to=None):
-        currency_pair = self.default_currency_pair
-
         # Wrangle the inputs - if we got currencies then use them, otherwise
         # set them to default values
-        if currency_from is not None and currency_to is not None:
-            currency_pair = currency_from.abbrev + currency_to.abbrev
-        else:
+        if currency_from is None or currency_to is None:
             currency_from = self.market.default_currency_from
             currency_to = self.market.default_currency_to
 
