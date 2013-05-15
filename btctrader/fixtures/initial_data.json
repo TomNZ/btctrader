@@ -131,7 +131,8 @@
   "pk": 1, 
   "model": "trader.market", 
   "fields": {
-    "default_trade_currency": 2, 
+    "default_currency_from": 1, 
+    "default_currency_to": 2, 
     "abbrev": "mtgox", 
     "api_name": "mtgox",
     "name": "MtGox"
@@ -141,17 +142,30 @@
   "pk": 2, 
   "model": "trader.market", 
   "fields": {
-    "default_trade_currency": 2, 
+    "default_currency_from": 1, 
+    "default_currency_to": 2, 
     "abbrev": "bitstamp", 
     "api_name": "bitstamp",
     "name": "Bitstamp"
   }
 },
 {
-  "pk": 3,
+  "pk": 4,
   "model": "trader.market",
   "fields": {
-    "default_trade_currency": 2,
+    "default_currency_from": 1,
+    "default_currency_to": 2,
+    "abbrev": "campbx",
+    "api_name": "campbx",
+    "name": "CampBX"
+  }
+},
+{
+  "pk": 4,
+  "model": "trader.market",
+  "fields": {
+    "default_currency_from": 1, 
+    "default_currency_to": 2, 
     "abbrev": "null",
     "api_name": "null",
     "name": "Null"

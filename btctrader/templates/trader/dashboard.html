@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static from staticfiles %}
+
+{% block content %}
+    <div id="top-bar">
+        <div id="ticker">
+            <strong>Ticker:</strong>
+            {% for market in markets %}
+                {{ market.name }}
+                B: {{ market.last_market_price.buy_price }}
+                S: {{ market.last_market_price.sell_price }}
+                |
+            {% endfor %}
+        </div>
+        <div id="new-trade">
+            <strong>Trade:</strong>
+            <form action="{% url 'order_submit' %}" method="post">{% csrf_token %}
+                <label>Market:
+                <select name="market">
+                {% for market in markets %}
+                    <option value="{{ market.abbrev }}">{{ market.name }}</option>
+                {% endfor %}
+                </select></label>
+                <label>Type:
+                <select name="type">
+                    <option value="B">Buy</option>
+                    <option value="S">Sell</option>
+                </select></label>
+                From: <strong>BTC</strong>
+                To: <strong>USD</strong>
+                <label>Amount: <input type="text" name="amount" /></label>
+                <label>Market Order: <input type="checkbox" name="market-order" /></label>
+                <label>Price: <input type="text" name="price" /></label>
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+    <div id="content">
+        <strong>Recent trades:</strong>
+        {% include 'trader/snippet/order_table.html' with orders=recent_orders %}
+    </div>
+{% endblock %}
