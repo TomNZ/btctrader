@@ -1,0 +1,32 @@
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Time</th>
+                <th>Market</th>
+                <th>Market ID</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Type</th>
+                <th>Market</th>
+                <th>Amount</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Status</th>
+            </tr>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.when_created }}</td>
+                    <td>{{ order.market.name }}</td>
+                    <td>{{ order.market_order_id }}</td>
+                    <td>{{ order.currency_from.abbrev }}</td>
+                    <td>{{ order.currency_to.abbrev }}</td>
+                    <td>{{ order.get_order_type_display }}</td>
+                    <td>{% if order.market_order %}Yes{% else %}No{% endif %}</td>
+                    <td>{{ order.amount }}</td>
+                    <td>{{ order.price }}</td>
+                    <td>{{ order.total }}</td>
+                    <td>{{ order.get_status_display }}</td>
+                </tr>
+            {% endfor %}
+        </table>

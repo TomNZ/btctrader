@@ -11,3 +11,9 @@ MTGOX_API_SECRET = ''
 BITSTAMP_API_USER = ''
 # Password
 BITSTAMP_API_PASSWORD = ''
+
+# CampBX settings
+# Username
+CAMPBX_API_USER = ''
+# Password
+CAMPBX_API_PASSWORD = ''

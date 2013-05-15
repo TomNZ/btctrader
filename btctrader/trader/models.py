@@ -31,6 +31,7 @@ class Market(models.Model):
     def __unicode__(self):
         return self.name
 
+    @property
     def market_api(self):
         if self.id in Market.apis.keys():
             return Market.apis[self.id]
@@ -38,6 +39,25 @@ class Market(models.Model):
             api = markets.AVAILABLE_MARKETS[self.api_name](self)
             Market.apis[self.id] = api
             return api
+
+    @property
+    def supported_from_currencies(self):
+        api = self.market_api()
+        return Currency.objects.filter(abbrev__in=[pair[0] for pair in api.supported_currency_pairs])
+
+    @property
+    def supported_to_currencies(self):
+        api = self.market_api()
+        return Currency.objects.filter(abbrev__in=[pair[1] for pair in api.supported_currency_pairs])
+
+    @property
+    def last_market_price(self):
+        api = self.market_api
+        success, err, price = api.api_get_current_market_price()
+        if success:
+            return price
+        else:
+            return None
 
 
 class MarketPeriod(models.Model):
@@ -71,6 +91,10 @@ ORDER_STATUS_CHOICES = (
 class Order(models.Model):
 
     order_type = models.CharField(max_length=1, choices=ORDER_TYPE_CHOICES)
+    when_created = models.DateTimeField(default=timezone.now, blank=True)
+    when_submitted = models.DateTimeField(blank=True, null=True)
+    when_filled = models.DateTimeField(blank=True, null=True)
+    when_cancelled = models.DateTimeField(blank=True, null=True)
     status = models.CharField(default='N', max_length=1, choices=ORDER_STATUS_CHOICES)
     market = models.ForeignKey(Market)
     market_order = models.BooleanField()
@@ -85,6 +109,10 @@ class Order(models.Model):
 
     def get_currency_pair(self, separator=''):
         return self.currency_from.abbrev + separator + self.currency_to.abbrev
+
+    @property
+    def total(self):
+        return self.amount * self.price
 
 
 class MarketPrice(models.Model):

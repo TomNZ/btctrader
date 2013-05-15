@@ -3,7 +3,7 @@
   <component name="DataSourceManagerImpl" format="xml" hash="4119638183">
     <data-source source="LOCAL" name="Django default" product="" version="" jdbc-version="" driver-name="" driver-version="" uuid="5ba146bd-4b5f-4b33-ac27-1877e7ab7b2c">
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql:btctrader</jdbc-url>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/btctrader</jdbc-url>
       <user-name>btctrader</user-name>
       <user-password>dfc8dfdedfc9df9bdf98df99</user-password>
       <libraries>
