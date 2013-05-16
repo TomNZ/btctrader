@@ -20,15 +20,18 @@ def market_view(request, market_id):
 
     success, err, market_price = market_api.api_get_current_market_price()
 
-    return render_to_response('trader/market_view.html', {'market': market, 'new_order_form': new_order_form,
-                                                          'market_price': market_price})
+    return render_to_response('trader/market_view.html',
+                              {'market': market, 'new_order_form': new_order_form, 'market_price': market_price},
+                              context_instance=RequestContext(request))
 
 
 def dashboard(request):
     markets = Market.objects.all()
     recent_orders = Order.objects.all().order_by('-when_created')[0:30]
 
-    return render_to_response('trader/dashboard.html', {'markets': markets, 'recent_orders': recent_orders})
+    return render_to_response('trader/dashboard.html',
+                              {'markets': markets, 'recent_orders': recent_orders},
+                              context_instance=RequestContext(request))
 
 
 def order_submit(request):
