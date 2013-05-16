@@ -746,6 +746,7 @@ CAMPBX_MINIMUM_TRADE_BTC = 0.01
 
 CAMPBX_API_BASE_URL = 'https://CampBX.com/api/'
 
+
 class CampBxMarket(MarketBase):
     """
     Market interface for CampBX
@@ -862,6 +863,11 @@ class CampBxMarket(MarketBase):
                 resp
 
         resp_json = resp.json()
+
+        # Sometimes CampBX will throttle calls, or have some other error
+        if 'Error' in resp_json.keys() and resp_json['Error'] != '':
+            return False, 'API request failed: %s' % resp_json['Error'], None
+
         return True, None, resp_json
 
     def api_get_current_market_price(self, force_update=False, currency_from=None, currency_to=None):
@@ -905,14 +911,13 @@ class CampBxMarket(MarketBase):
 
         # Since we're on the opposite side of the transaction, the lowest "ask" price is
         # what we will be buying for, and vice versa
-        market_price.buy_price = float(ticker['Best Ask Price'])
-        market_price.sell_price = float(ticker['Best Bid Price'])
+        market_price.buy_price = float(ticker['Best Bid'])
+        market_price.sell_price = float(ticker['Best Ask'])
 
         # Save it so it can be "cached" for next time
         market_price.save()
 
         return True, None, market_price
-
 
 
 class NullMarket(MarketBase):
