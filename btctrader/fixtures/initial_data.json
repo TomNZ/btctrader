@@ -135,7 +135,9 @@
     "default_currency_to": 2, 
     "abbrev": "mtgox", 
     "api_name": "mtgox",
-    "name": "MtGox"
+    "name": "MtGox",
+    "automated_trading_enabled": false,
+    "reserved_currency_from": 1
   }
 },
 {
@@ -146,7 +148,9 @@
     "default_currency_to": 2, 
     "abbrev": "bitstamp", 
     "api_name": "bitstamp",
-    "name": "Bitstamp"
+    "name": "Bitstamp",
+    "automated_trading_enabled": false,
+    "reserved_currency_from": 1
   }
 },
 {
@@ -157,7 +161,9 @@
     "default_currency_to": 2,
     "abbrev": "campbx",
     "api_name": "campbx",
-    "name": "CampBX"
+    "name": "CampBX",
+    "automated_trading_enabled": false,
+    "reserved_currency_from": 1
   }
 },
 {
@@ -168,7 +174,29 @@
     "default_currency_to": 2, 
     "abbrev": "null",
     "api_name": "null",
-    "name": "Null"
+    "name": "Null",
+    "automated_trading_enabled": false,
+    "reserved_currency_from": 1
   }
+},
+{
+    "pk": 1,
+    "model": "trader.trader",
+    "fields": {
+        "name": "ArbitrageTrader",
+        "abbrev": "arbitrage",
+        "algo_name": "arbitrage",
+        "enabled": true
+    }
+},
+{
+    "pk": 2,
+    "model": "trader.trader",
+    "fields": {
+        "name": "EmaTrader_10_21",
+        "abbrev": "ema_10_21",
+        "algo_name": "ema",
+        "enabled": true
+    }
 }
 ]

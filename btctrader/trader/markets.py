@@ -6,7 +6,10 @@ from django.utils import timezone
 import urllib
 import requests
 import models
-import trader_settings
+from trader_settings import market_settings
+
+
+settings = market_settings()
 
 
 # Note that all public API functions are expected to return up to 3 outputs:
@@ -158,8 +161,8 @@ class MtGoxMarket(MarketBase):
         super(MtGoxMarket, self).__init__(market)
 
         # Change these to reflect your actual API keys
-        self.api_key = trader_settings.MTGOX_API_KEY
-        self.api_secret = trader_settings.MTGOX_API_SECRET
+        self.api_key = settings.mtgox_api_key
+        self.api_secret = settings.mtgox_api_secret
 
         # Internal storage for the current trading fee
         # Varies from account to account - must be updated via the API
@@ -521,8 +524,8 @@ class BitstampMarket(MarketBase):
     def __init__(self, market):
         super(BitstampMarket, self).__init__(market)
 
-        self.api_user = trader_settings.BITSTAMP_API_USER
-        self.api_password = trader_settings.BITSTAMP_API_PASSWORD
+        self.api_user = settings.bitstamp_api_user
+        self.api_password = settings.bitstamp_api_password
 
         # Internal storage for the current trading fee
         # Varies from account to account - must be updated via the API
@@ -769,8 +772,8 @@ class CampBxMarket(MarketBase):
     def __init__(self, market):
         super(CampBxMarket, self).__init__(market)
 
-        self.api_user = trader_settings.CAMPBX_API_USER
-        self.api_password = trader_settings.CAMPBX_API_PASSWORD
+        self.api_user = settings.campbx_api_user
+        self.api_password = settings.campbx_api_password
 
         # Internal storage for the current trading fee
         # Varies from account to account - must be updated via the API
