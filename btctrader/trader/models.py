@@ -1,5 +1,6 @@
 from django.db import models
 import markets
+import traders
 from django.utils import timezone
 
 
@@ -24,6 +25,9 @@ class Market(models.Model):
     api_name = models.CharField(max_length=256)
     default_currency_from = models.ForeignKey(Currency, related_name='default_currency_from_market_set')
     default_currency_to = models.ForeignKey(Currency, related_name='default_currency_to_market_set')
+    automated_trading_enabled = models.BooleanField(blank=False, null=False, default=False)
+    reserved_amount = models.DecimalField(decimal_places=5, max_digits=18, default=0)
+    reserved_currency = models.ForeignKey(Currency, related_name='reserved_currency_market_set')
 
     # Stores persistent API objects
     apis = {}
@@ -72,6 +76,29 @@ class MarketPeriod(models.Model):
     volume = models.DecimalField(decimal_places=3, max_digits=16)
 
 
+class Trader(models.Model):
+
+    name = models.CharField(max_length=256)
+    abbrev = models.CharField(max_length=20)
+    algo_name = models.CharField(max_length=256)
+    enabled = models.BooleanField(blank=False, null=False, default=True)
+
+    # Stores persistent trading algorithm objects
+    algos = {}
+
+    def __unicode__(self):
+        return self.name
+
+    @property
+    def algo(self):
+        if self.id in Trader.algos.keys():
+            return Trader.algos[self.id]
+        else:
+            algo = traders.AVAILABLE_TRADERS[self.algo_name](self)
+            Trader.algos[self.id] = algo
+            return algo
+
+
 ORDER_TYPE_CHOICES = (
     ('B', 'Buy'),
     ('S', 'Sell'),
@@ -103,6 +130,7 @@ class Order(models.Model):
     currency_to = models.ForeignKey(Currency, related_name='currency_to_order_set')
     price = models.DecimalField(blank=True, null=True, decimal_places=5, max_digits=18)
     market_order_id = models.CharField(max_length=255)
+    trader = models.ForeignKey(Trader, blank=True, null=True)
 
     def __unicode__(self):
         return self.market_order_id

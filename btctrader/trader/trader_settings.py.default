@@ -1,19 +1,27 @@
 # Defines a number of settings specific to the trader application and market APIs
 
-# MtGox settings
-# API Key
-MTGOX_API_KEY = ''
-# API Secret
-MTGOX_API_SECRET = ''
 
-# BitStamp settings
-# Username
-BITSTAMP_API_USER = ''
-# Password
-BITSTAMP_API_PASSWORD = ''
+class trader_settings(object):
+    def __init__(self):
+        pass
 
-# CampBX settings
-# Username
-CAMPBX_API_USER = ''
-# Password
-CAMPBX_API_PASSWORD = ''
+
+class market_settings(object):
+    def __init__(self):
+        # MtGox settings
+        # API Key
+        self.mtgox_api_key = ''
+        # API Secret
+        self.mtgox_api_secret = ''
+
+        # BitStamp settings
+        # Username
+        self.bitstamp_api_user = ''
+        # Password
+        self.bitstamp_api_password = ''
+
+        # CampBX settings
+        # Username
+        self.campbx_api_user = ''
+        # Password
+        self.campbx_api_password = ''
