@@ -5,6 +5,15 @@ from trader_settings import trader_settings
 
 celery = Celery('agent', broker='django://')
 
+MARKET_HISTORICAL_DATA_MAP = {
+    'mtgox': 'mtgoxUSD'
+}
+
+
+@celery.task
+def import_historical_data():
+    pass
+
 
 def update_prices(markets, timestamp, settings):
     for market in markets:
