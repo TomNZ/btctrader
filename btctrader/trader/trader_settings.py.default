@@ -2,8 +2,36 @@
 
 
 class trader_settings(object):
+    """
+    Monolithic settings object shared by all trading algorithms.
+
+    Note: This could have been made into separate settings objects (or even
+    stored in the database), but I chose to store it all in once place, both
+    for the simplicity of editing settings, but also to allow easy parameter
+    exploration in future.
+    """
     def __init__(self):
-        pass
+
+        # Number of days to ensure history is present for. Used by the price updating
+        # function, based on the requested timestamp
+        self.historical_trades_days_to_keep = 30
+
+        # Maximum number of seconds of 
+        self.historical_trades_max_age = 60
+
+        # Settings for individual trading algorithm instances
+        self.algo = {
+            # Settings for Ema trader based on 10/21 crossover
+            'emac_10_21': {
+                'short_period': 10,
+                'long_period': 21,
+                'period': '1M',
+            },
+            # Settings for the arbitrage trader
+            'arbitrage': {
+
+            }
+        }
 
 
 class market_settings(object):
