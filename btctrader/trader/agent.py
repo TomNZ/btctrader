@@ -1,18 +1,44 @@
 from django.utils import timezone
 from celery import Celery
-from models import Market, Order, Trader
+from models import Market, Order, Trader, HistoricalTrade
 from trader_settings import trader_settings
+import requests
+from datetime import timedelta
+
+
+default_settings = trader_settings()
 
 celery = Celery('agent', broker='django://')
 
 MARKET_HISTORICAL_DATA_MAP = {
-    'mtgox': 'mtgoxUSD'
+    'mtgox': ('mtgoxUSD', 'BTC', 'USD'),
+
 }
+
+BITCOINCHARTS_TRADES_URL = 'http://api.bitcoincharts.com/v1/trades.csv?symbol=%s&end=%s'
 
 
 @celery.task
 def import_historical_data():
-    pass
+    for api_name, params in MARKET_HISTORICAL_DATA_MAP:
+        market = Market.objects.get(api_name=api_name)
+        symbol = params[0]
+        currency_from = params[1]
+        currency_to = params[2]
+
+        min_time = timezone.now() + timedelta(days=-default_settings.historical_trades_days_to_keep)
+
+        existing_trades = HistoricalTrade.objects.filter(market=market, time__gt=min_time, time__lt=timezone.now())\
+                                                 .order_by('-time')
+
+        if len(existing_trades) > 0:
+            latest_trade = existing_trades[0]
+
+            if
+
+        path = BITCOINCHARTS_TRADES_URL % (symbol, timestamp)
+        resp = requests.get(path)
+
 
 
 def update_prices(markets, timestamp, settings):

@@ -151,3 +151,13 @@ class MarketPrice(models.Model):
     time = models.DateTimeField(default=timezone.now, blank=True)
     buy_price = models.DecimalField(decimal_places=5, max_digits=18)
     sell_price = models.DecimalField(decimal_places=5, max_digits=18)
+
+
+class HistoricalTrade(models.Model):
+
+    market = models.ForeignKey(Market)
+    currency_from = models.ForeignKey(Currency, related_name='currency_from_historicaltrade_set')
+    currency_to = models.ForeignKey(Currency, related_name='currency_to_historicaltrade_set')
+    time = models.DateTimeField()
+    amount = models.DecimalField(decimal_places=5, max_digits=18)
+    price = models.DecimalField(decimal_places=5, max_digits=18)

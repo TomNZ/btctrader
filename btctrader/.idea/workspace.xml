@@ -2,25 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/trader/dashboard.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/trader/snippet/order_table.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/trader/json/success_plain.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trader/agent.py" afterPath="$PROJECT_DIR$/trader/agent.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fixtures/initial_data.json" afterPath="$PROJECT_DIR$/fixtures/initial_data.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trader/markets.py" afterPath="$PROJECT_DIR$/trader/markets.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trader/models.py" afterPath="$PROJECT_DIR$/trader/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trader/static/css/style.css" afterPath="$PROJECT_DIR$/trader/static/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trader/trader_settings.py.default" afterPath="$PROJECT_DIR$/trader/trader_settings.py.default" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btctrader/urls.py" afterPath="$PROJECT_DIR$/btctrader/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trader/views.py" afterPath="$PROJECT_DIR$/trader/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="btctrader.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/settings.py" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1367195845512" ignored="false" />
-    <file path="/models.py" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1368390575129" ignored="false" />
+    <file path="/models.py" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1369605077459" ignored="false" />
     <file path="/classes.py" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1367203594909" ignored="false" />
-    <file path="/markets.py" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1368639064537" ignored="false" />
+    <file path="/markets.py" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1368639620733" ignored="false" />
     <file path="/urls.py" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1368502544961" ignored="false" />
     <file path="/views.py" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1368504992681" ignored="false" />
     <file path="/index.html" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1367295993726" ignored="false" />
@@ -29,6 +22,8 @@
     <file path="/dummy.xml" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1368315763946" ignored="false" />
     <file path="/success_plain.json" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1368504930635" ignored="false" />
     <file path="/trader_settings.py.default" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1368637218722" ignored="false" />
+    <file path="/agent.py" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1369609083047" ignored="false" />
+    <file path="/trader_settings.py" changelist="a7e5b786-a6fc-4e91-b63b-79ee730b7d3b" time="1369609130583" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,20 +46,41 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trader/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="29" selection-end="29" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="162" column="32" selection-start="5629" selection-end="5629" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="markets.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="markets.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trader/markets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="910" column="53" selection-start="34783" selection-end="34783" vertical-scroll-proportion="1.3933464">
+            <state line="261" column="62" selection-start="8607" selection-end="8835" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="e#4190#18881#0" expanded="false" />
-                <element signature="e#21509#23350#0" expanded="false" />
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="agent.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trader/agent.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="14" selection-start="1096" selection-end="1096" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#33#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trader_settings.py.default" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/trader/trader_settings.py.default">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="38" selection-start="1475" selection-end="1475" vertical-scroll-proportion="0.7977011">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -72,7 +88,7 @@
       <file leaf-file-name="trader_settings.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trader/trader_settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="24" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0">
+            <state line="22" column="21" selection-start="0" selection-end="1749" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -81,16 +97,7 @@
       <file leaf-file-name="initial_data.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fixtures/initial_data.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="159" column="19" selection-start="2444" selection-end="2444" vertical-scroll-proportion="-12.16129">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="trader_settings.py.default" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trader/trader_settings.py.default">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="0" selection-start="257" selection-end="343" vertical-scroll-proportion="0.0">
+            <state line="188" column="19" selection-start="3116" selection-end="3116" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -99,7 +106,7 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trader/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="42" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0">
+            <state line="0" column="42" selection-start="42" selection-end="42" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -108,7 +115,7 @@
       <file leaf-file-name="success_plain.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/trader/json/success_plain.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="1" selection-start="23" selection-end="23" vertical-scroll-proportion="-1.4193548">
+            <state line="2" column="1" selection-start="23" selection-end="23" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -117,7 +124,7 @@
       <file leaf-file-name="dashboard.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/trader/dashboard.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="78" selection-start="1598" selection-end="1598" vertical-scroll-proportion="-25.64516">
+            <state line="40" column="78" selection-start="1598" selection-end="1598" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -126,16 +133,7 @@
       <file leaf-file-name="order_table.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/trader/snippet/order_table.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="28" selection-start="450" selection-end="450" vertical-scroll-proportion="-10.645162">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/btctrader/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="1" selection-start="3399" selection-end="3399" vertical-scroll-proportion="0.0">
+            <state line="15" column="28" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -154,17 +152,18 @@
         <option value="$PROJECT_DIR$/btctrader/settings.py" />
         <option value="$PROJECT_DIR$/trader/classes.py" />
         <option value="$PROJECT_DIR$/templates/index.html" />
-        <option value="$PROJECT_DIR$/trader/models.py" />
         <option value="$PROJECT_DIR$/trader/static/css/style.css" />
         <option value="$PROJECT_DIR$/btctrader/urls.py" />
         <option value="$PROJECT_DIR$/templates/trader/json/success_plain.json" />
         <option value="$PROJECT_DIR$/trader/views.py" />
         <option value="$PROJECT_DIR$/templates/trader/snippet/order_table.html" />
         <option value="$PROJECT_DIR$/templates/trader/dashboard.html" />
-        <option value="$PROJECT_DIR$/trader/trader_settings.py.default" />
         <option value="$PROJECT_DIR$/fixtures/initial_data.json" />
-        <option value="$PROJECT_DIR$/trader/trader_settings.py" />
         <option value="$PROJECT_DIR$/trader/markets.py" />
+        <option value="$PROJECT_DIR$/trader/models.py" />
+        <option value="$PROJECT_DIR$/trader/agent.py" />
+        <option value="$PROJECT_DIR$/trader/trader_settings.py" />
+        <option value="$PROJECT_DIR$/trader/trader_settings.py.default" />
       </list>
     </option>
   </component>
@@ -200,6 +199,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -378,19 +378,18 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="editor.preferences.appearance" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -418,29 +417,6 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="btctrader" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
-      <method />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -462,6 +438,29 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="btctrader" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -550,8 +549,8 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18589744" sideWeight="0.6006674" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39933258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18803419" sideWeight="0.6006674" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -627,54 +626,37 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/trader/views.py</url>
-          <line>37</line>
+          <line>40</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="12" />
+      <option name="time" value="13" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/trader/market_view.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="382" vertical-scroll-proportion="-0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/Lib/site-packages/django-1.5.1-py2.7.egg/django/conf/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="79" selection-start="6740" selection-end="6740" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="160" column="79" selection-start="6740" selection-end="6740" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trader/static/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="0" selection-start="1622" selection-end="1622" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="92" column="0" selection-start="1622" selection-end="1622" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/btctrader/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="12" selection-start="405" selection-end="405" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="14" column="12" selection-start="405" selection-end="405" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/trader/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/btctrader/settings.py">
@@ -686,67 +668,77 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/trader/json/success_plain.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="1" selection-start="23" selection-end="23" vertical-scroll-proportion="-1.4193548">
+        <state line="2" column="1" selection-start="23" selection-end="23" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trader/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="42" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0">
+        <state line="0" column="42" selection-start="42" selection-end="42" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/trader/snippet/order_table.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="28" selection-start="450" selection-end="450" vertical-scroll-proportion="-10.645162">
+        <state line="15" column="28" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/trader/dashboard.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="78" selection-start="1598" selection-end="1598" vertical-scroll-proportion="-25.64516">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trader/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="29" selection-end="29" vertical-scroll-proportion="0.0">
+        <state line="40" column="78" selection-start="1598" selection-end="1598" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fixtures/initial_data.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="19" selection-start="2444" selection-end="2444" vertical-scroll-proportion="-12.16129">
+        <state line="188" column="19" selection-start="3116" selection-end="3116" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trader/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="162" column="32" selection-start="5629" selection-end="5629" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trader/markets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="261" column="62" selection-start="8607" selection-end="8835" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trader/agent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="14" selection-start="1096" selection-end="1096" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trader/trader_settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="21" selection-start="0" selection-end="1749" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trader/trader_settings.py.default">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="257" selection-end="343" vertical-scroll-proportion="0.0">
+        <state line="48" column="38" selection-start="1475" selection-end="1475" vertical-scroll-proportion="0.7977011">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trader/trader_settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="24" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trader/markets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="910" column="53" selection-start="34783" selection-end="34783" vertical-scroll-proportion="1.3933464">
-          <folding>
-            <element signature="e#4190#18881#0" expanded="false" />
-            <element signature="e#21509#23350#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
