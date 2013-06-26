@@ -17,11 +17,24 @@ MARKET_HISTORICAL_DATA_MAP = {
 
 BITCOINCHARTS_TRADES_URL = 'http://api.bitcoincharts.com/v1/trades.csv?symbol=%s&end=%s'
 
+HISTORICAL_DATA_LOCATION = 'historical_data/%s.csv'
+
 
 @celery.task
 def import_historical_data():
-    for api_name, params in MARKET_HISTORICAL_DATA_MAP:
-        market = Market.objects.get(api_name=api_name)
+    for abbrev, params in MARKET_HISTORICAL_DATA_MAP:
+        market = Market.objects.get(abbrev=abbrev)
+        symbol = params[0]
+        currency_from = params[1]
+        currency_to = params[2]
+
+        historical_file = open(HISTORICAL_DATA_LOCATION % symbol, 'r')
+
+
+
+def update_current_data():
+    for abbrev, params in MARKET_HISTORICAL_DATA_MAP:
+        market = Market.objects.get(abbrev=abbrev)
         symbol = params[0]
         currency_from = params[1]
         currency_to = params[2]
